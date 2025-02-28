@@ -22,6 +22,8 @@ model User{
   password String
   Blogs   Blog[]
   likes Like[]
+  isverify Boolean @default(false)
+  dislike dislike[]
 }
 
 // relation usi model me banega jisme foreign key is present
@@ -33,6 +35,8 @@ model Blog {
   author_id   Int
   likes Like[]
   likecount Int @default(0)
+  dislike dislike[]
+  dislikecount Int @default(0)
 }
 
 model Like{
@@ -41,4 +45,18 @@ model Like{
   blogId  Int
   user User @relation(fields:[author_id],references:[id])
   blog Blog @relation(fields:[blogId],references:[id])
+}
+
+model dislike{
+  id Int @id @default(autoincrement())
+  author_id Int
+  blogId  Int
+  user User @relation(fields:[author_id],references:[id])
+  blog Blog @relation(fields:[blogId],references:[id])
+}
+
+model token{
+  id Int @id @default(autoincrement())
+  token Int
+  userid Int 
 }
