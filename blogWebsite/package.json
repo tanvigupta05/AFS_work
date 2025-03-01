@@ -10,9 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^6.3.0",
+    "@prisma/client": "^6.4.1",
     "express": "^4.21.2",
-    "jsonwebtoken": "^9.0.2",
-    "prisma": "^6.3.0"
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "prisma": "^6.4.1"
   }
 }
