@@ -2,6 +2,8 @@ const {PrismaClient} = require('@prisma/client');
 const prisma= new PrismaClient();
 const express= require("express");
 const router= express.Router();
+const { TokenExpiredError } = require("jsonwebtoken");
+const { sendmail } = require("../utils/sendmail");
 
 router.get("/:email",async(req,res)=>{
     const {email}= req.params;
@@ -23,6 +25,17 @@ router.post("/",async(req,res)=>{
             password:password
         }
     })
+    let token = Math.floor(Math.random()*10000);
+
+    let newtoken = await prisma.token.create({
+        data:{
+            token:token,
+            userId:newuser.id
+        }
+    })
+
+    let link = `http://localhost:4245/verify/${token}/${newuser.id}`
+     await sendmail(email,"verify email",link)
     res.json({newuser})
 })
 
